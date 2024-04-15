@@ -30,6 +30,23 @@ app.post("/usuarios/novo", async (req, res) => {
 });
 
 
+const Jogo = require("./models/Jogo"); // Importe o modelo Jogo
+
+app.post("/jogos/novo", async (req, res) => {
+  const { titulo, descricao, precoBase } = req.body;
+
+  try {
+    const jogo = await Jogo.create({
+      titulo,
+      descricao,
+      precoBase,
+    });
+    res.send(`<script>alert("Jogo inserido sob o id ${jogo.id}"); window.location.href = '/jogos/novo';</script>`);
+  } catch (error) {
+    console.error("Erro ao criar jogo:", error);
+    res.send(`<script>alert("Erro ao criar jogo: ${error.message}"); window.location.href = '/jogos/novo';</script>`);
+  }
+});
 
 
 app.listen(8000, () => {
