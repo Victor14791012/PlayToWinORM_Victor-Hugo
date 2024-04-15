@@ -30,6 +30,8 @@ app.post("/usuarios/novo", async (req, res) => {
 });
 
 
+
+
 app.listen(8000, () => {
   console.log("Rodando na porta 8000");
 });
