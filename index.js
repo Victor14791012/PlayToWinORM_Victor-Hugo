@@ -1,15 +1,24 @@
 require("dotenv").config();
 const conn = require("./db/conn");
 const Usuario = require("./models/Usuario");
+const Jogo = require("./models/Jogo"); 
 const express = require("express");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
+
 app.get("/usuarios/novo", (req, res) => {
   res.sendFile(`${__dirname}/views/formUsuario.html`);
 });
+
+app.get("/jogos/novo", (req, res) => {
+  res.sendFile(`${__dirname}/views/formJogo.html`);
+});
+
+
 
 app.post("/usuarios/novo", async (req, res) => {
   const nickname = req.body.nickname;
@@ -30,7 +39,7 @@ app.post("/usuarios/novo", async (req, res) => {
 });
 
 
-const Jogo = require("./models/Jogo"); // Importe o modelo Jogo
+
 
 app.post("/jogos/novo", async (req, res) => {
   const { titulo, descricao, precoBase } = req.body;
