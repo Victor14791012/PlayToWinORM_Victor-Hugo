@@ -8,7 +8,14 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
+app.get("/", (req, res) => {
+  res.send(`
+    <div>
+      <a href="/usuarios/novo">Cadastrar Usuário</a> <br>
+      <a href="/jogos/novo">Cadastrar Jogo</a>
+    </div>
+  `);
+});
 
 app.get("/usuarios/novo", (req, res) => {
   res.sendFile(`${__dirname}/views/formUsuario.html`);
