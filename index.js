@@ -3,22 +3,28 @@ const conn = require("./db/conn");
 const Usuario = require("./models/Usuario");
 const Jogo = require("./models/Jogo"); 
 const express = require("express");
+const exphbs= require("express-handlebars");
+
 const app = express();
+app.engine("handlebars",exphbs.engine());
+app.set("view engine","handlebars");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send(`
-    <div>
-      <a href="/usuarios/novo">Cadastrar Usuário</a> <br>
-      <a href="/jogos/novo">Cadastrar Jogo</a>
-    </div>
-  `);
+  res.render("home");
 });
 
+app.get("/usuarios", async (req, res) => {
+  const usuarios = await Usuario.findAll({raw: true}); 
+  res.render("usuarios" , {usuarios});
+});
+
+
+
 app.get("/usuarios/novo", (req, res) => {
-  res.sendFile(`${__dirname}/views/formUsuario.html`);
+  res.render("formUsuario");
 });
 
 app.get("/jogos/novo", (req, res) => {
