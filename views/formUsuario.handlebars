@@ -1,19 +1,17 @@
-
-    <div class="container">
-        <div class="form-container">
-            <h2 class="form-title">Cadastro de Usuário</h2>
-            <form action="/usuarios/novo" method="post">
-                <div class="mb-3">
-                    <label for="nickname" class="form-label">Nickname:</label>
-                    <input type="text" id="nickname" name="nickname" class="form-control"/>
-                </div>
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome:</label>
-                    <input type="text" id="nome" name="nome" class="form-control"/>
-                </div>
-                <button type="submit" class="btn btn-primary btn-submit">Cadastrar</button>
-            </form>
-            <a href="/jogos/novo" class="btn btn-secondary btn-back">Cadastrar Jogo</a>
-        </div>
-    </div>
-
+<div class="container">
+  <div class="form-container">
+    <h2 class="form-title">{{#if usuario}}Editar Usuário{{else}}Cadastro de Usuário{{/if}}</h2>
+    <form action="{{#if usuario}}/usuarios/{{usuario.id}}/update{{else}}/usuarios/novo{{/if}}" method="post">
+      <div class="mb-3">
+        <label for="nickname" class="form-label">Nickname:</label>
+        <input type="text" id="nickname" name="nickname" class="form-control" value="{{usuario.nickname}}" />
+      </div>
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome:</label>
+        <input type="text" id="nome" name="nome" class="form-control" value="{{usuario.nome}}" />
+      </div>
+      <button type="submit" class="btn btn-primary btn-submit">{{#if usuario}}Salvar Alterações{{else}}Cadastrar{{/if}}</button>
+    </form>
+    <a href="/jogos/novo" class="btn btn-secondary btn-back">Cadastrar Jogo</a>
+  </div>
+</div>

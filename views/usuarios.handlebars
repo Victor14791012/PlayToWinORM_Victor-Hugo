@@ -5,13 +5,18 @@
         <th>Id</th>
         <th>Nickname</th>
         <th>Nome</th>
+        <th>Update</th>
         
     </tr>
-    {{#each usuaios}}
+    {{#each usuarios}}
      <tr>
         <td>{{this.id}}</td>
         <td>{{this.nickname}}</td>
         <td>{{this.nome}}</td>
+        <td> 
+            <a href="/usuarios/{{this.id}}/update"> Atualizar </a>
+        </td>
+        
         
     </tr>
     {{/each}}

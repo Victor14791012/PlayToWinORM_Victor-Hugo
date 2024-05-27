@@ -27,6 +27,15 @@ app.get("/usuarios/novo", (req, res) => {
   res.render("formUsuario");
 });
 
+app.get("/usuarios/:id/update", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const usuario = await Usuario.findByPk(id, { raw: true });
+  res.render("formUsuario", { usuario });
+
+  
+});
+
+
 app.get("/jogos/novo", (req, res) => {
   res.sendFile(`${__dirname}/views/formJogo.html`);
 });
