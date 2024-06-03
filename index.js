@@ -32,8 +32,28 @@ app.get("/usuarios/:id/update", async (req, res) => {
   const usuario = await Usuario.findByPk(id, { raw: true });
   res.render("formUsuario", { usuario });
 
+
+});
+
+
+app.post("/usuarios/:id/update", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { nickname, nome } = req.body;
+
+  try {
+    await Usuario.update({ nickname, nome }, { where: { id } });
+    res.send(`<script>alert("Usuário atualizado com sucesso"); window.location.href = '/usuarios';</script>`);
+  } catch (error) {
+    console.error("Erro ao atualizar usuário:", error);
+    res.send(`<script>alert("Erro ao atualizar usuário: ${error.message}"); window.location.href = '/usuarios';</script>`);
+  }
+});
+
+app.post("/usuarios/:id/delete", async (req, res) => {
   
 });
+
+
 
 
 app.get("/jogos/novo", (req, res) => {

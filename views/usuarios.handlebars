@@ -6,6 +6,7 @@
         <th>Nickname</th>
         <th>Nome</th>
         <th>Update</th>
+        <th>Deletar</th>
         
     </tr>
     {{#each usuarios}}
@@ -16,6 +17,9 @@
         <td> 
             <a href="/usuarios/{{this.id}}/update"> Atualizar </a>
         </td>
+        <td> 
+             <a href="/usuarios/{{this.id}}/delete"> Deletar </a>
+        </td>    
         
         
     </tr>
