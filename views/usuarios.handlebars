@@ -7,21 +7,18 @@
         <th>Nome</th>
         <th>Update</th>
         <th>Deletar</th>
-        
     </tr>
     {{#each usuarios}}
-     <tr>
+    <tr>
         <td>{{this.id}}</td>
         <td>{{this.nickname}}</td>
         <td>{{this.nome}}</td>
-        <td> 
-            <a href="/usuarios/{{this.id}}/update"> Atualizar </a>
+        <td>
+            <a href="/usuarios/{{this.id}}/update">Atualizar</a>
         </td>
-        <td> 
-             <a href="/usuarios/{{this.id}}/delete"> Deletar </a>
-        </td>    
-        
-        
+        <td>
+            <a href="/usuarios/{{this.id}}/delete" onclick="return confirm('Você tem certeza que deseja deletar este usuário?')" >Deletar</a>
+        </td>
     </tr>
     {{/each}}
 </table>
