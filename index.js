@@ -21,6 +21,12 @@ app.get("/usuarios", async (req, res) => {
   res.render("usuarios", { usuarios });
 });
 
+app.get("/jogos", async (req, res) => {
+    const jogos = await Jogo.findAll({ raw: true });
+    res.render("jogos", { jogos });  
+});
+
+
 app.get("/usuarios/novo", (req, res) => {
   res.render("formUsuario");
 });
@@ -55,8 +61,30 @@ app.get("/usuarios/:id/delete", async (req, res) => {
     res.send(`<script>alert("Erro ao deletar usuário: ${error.message}"); window.location.href = '/usuarios';</script>`);
   }
 });
+
 app.get("/jogos/novo", (req, res) => {
-  res.sendFile(`${__dirname}/views/formJogo.html`);
+  res.render("formJogo");
+});
+
+app.post("/jogos/novo", async (req, res) => {
+  const { titulo, descricao, precoBase } = req.body;
+
+  try {
+    const jogo = await Jogo.create({
+      titulo,
+      descricao,
+      precoBase,
+    });
+    res.send(`<script>alert("Jogo inserido sob o id ${jogo.id}"); window.location.href = '/jogos';</script>`);
+  } catch (error) {
+    console.error("Erro ao criar jogo:", error);
+    res.send(`<script>alert("Erro ao criar jogo: ${error.message}"); window.location.href = '/jogos/novo';</script>`);
+  }
+});
+
+
+app.get("/usuarios/novo", (req, res) => {
+  res.render("formUsuario");
 });
 
 app.post("/usuarios/novo", async (req, res) => {
@@ -71,17 +99,42 @@ app.post("/usuarios/novo", async (req, res) => {
   }
 });
 
-app.post("/jogos/novo", async (req, res) => {
+
+
+// Rota para renderizar o formulário de edição de jogos
+app.get("/jogos/:id/update", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const jogo = await Jogo.findByPk(id, { raw: true });
+  res.render("formJogo", { jogo });
+});
+
+
+app.post("/jogos/:id/update", async (req, res) => {
+  const id = parseInt(req.params.id);
   const { titulo, descricao, precoBase } = req.body;
 
   try {
-    const jogo = await Jogo.create({ titulo, descricao, precoBase });
-    res.send(`<script>alert("Jogo inserido sob o id ${jogo.id}"); window.location.href = '/jogos/novo';</script>`);
+    await Jogo.update({ titulo, descricao, precoBase }, { where: { id } });
+    res.send(`<script>alert("Jogo atualizado com sucesso"); window.location.href = '/jogos';</script>`);
   } catch (error) {
-    console.error("Erro ao criar jogo:", error);
-    res.send(`<script>alert("Erro ao criar jogo: ${error.message}"); window.location.href = '/jogos/novo';</script>`);
+    console.error("Erro ao atualizar jogo:", error);
+    res.send(`<script>alert("Erro ao atualizar jogo: ${error.message}"); window.location.href = '/jogos';</script>`);
   }
 });
+
+
+app.get("/jogos/:id/delete", async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  try {
+    await Jogo.destroy({ where: { id } });
+    res.send(`<script>alert("Jogo deletado com sucesso"); window.location.href = '/jogos';</script>`);
+  } catch (error) {
+    console.error("Erro ao deletar jogo:", error);
+    res.send(`<script>alert("Erro ao deletar jogo: ${error.message}"); window.location.href = '/jogos';</script>`);
+  }
+});
+
 
 app.listen(8000, () => {
   console.log("Rodando na porta 8000");

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Código PTAS</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -27,12 +27,33 @@
             margin-bottom: 20px;
             text-align: center;
         }
-       
         .btn-submit {
             width: 100%;
         }
         .btn-back {
             margin-top: 10px;
+        }
+        header {
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        nav a {
+            margin: 0 10px;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #dee2e6;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
         }
     </style>
 </head>
@@ -40,14 +61,14 @@
     <header>
         <a href="/"><h1>PlayToWin.com</h1></a>
         <nav>
-            <a href="/usuarios/novo">Cadastrar Usuários</a><br>
-            <a href="/jogos/novo">Cadastrar Jogos</a> <br>
-            <a href="/usuarios">Usuários</a>
+            <a href="/usuarios/novo" >Cadastrar Usuários</a>
+            <a href="/jogos/novo" >Cadastrar Jogos</a>
+            <a href="/usuarios" >Usuários</a>
+            <a href="/jogos" >Jogos</a>
         </nav>
     </header>
-    <main>
+ 
         {{{body}}}
-    </main>
     
 </body>
 </html>

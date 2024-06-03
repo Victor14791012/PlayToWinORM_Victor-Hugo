@@ -1,0 +1,26 @@
+<h1>Jogos Cadastrados</h1>
+
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Título</th>
+        <th>Descrição</th>
+        <th>Preço Base</th>
+        <th>Update</th>
+        <th>Deletar</th>
+    </tr>
+    {{#each jogos}}
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.titulo}}</td>
+        <td>{{this.descricao}}</td>
+        <td>{{this.precoBase}}</td>
+        <td>
+            <a href="/jogos/{{this.id}}/update" >Atualizar</a>
+        </td>
+        <td>
+            <a href="/jogos/{{this.id}}/delete"  onclick="return confirm('Você tem certeza que deseja deletar este jogo?')">Deletar</a>
+        </td>
+    </tr>
+    {{/each}}
+</table>
