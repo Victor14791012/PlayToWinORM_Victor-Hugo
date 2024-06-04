@@ -1,21 +1,21 @@
-<div class="container">
-  <div class="form-container">
-    <h2 class="form-title">{{#if jogo}}Editar Jogo{{else}}Cadastro de Jogo{{/if}}</h2>
-    <form action="{{#if jogo}}/jogos/{{jogo.id}}/update{{else}}/jogos/novo{{/if}}" method="post">
-      <div class="mb-3">
-        <label for="titulo" class="form-label">Título:</label>
-        <input type="text" id="titulo" name="titulo" class="form-control" value="{{jogo.titulo}}" />
-      </div>
-      <div class="mb-3">
-        <label for="descricao" class="form-label">Descrição:</label>
-        <input type="text" id="descricao" name="descricao" class="form-control" value="{{jogo.descricao}}" />
-      </div>
-      <div class="mb-3">
-        <label for="precoBase" class="form-label">Preço Base:</label>
-        <input type="number" id="precoBase" name="precoBase" class="form-control" value="{{jogo.precoBase}}" />
-      </div>
-      <a type="submit" class="btn btn-primary btn-submit">{{#if jogo}}Salvar Alterações{{else}}Cadastrar Jogo{{/if}}</button>
-    </form>
-    <a href="/usuarios/novo" class="btn btn-secondary btn-back">Cadastrar Usuário</a>
-  </div>
-</div>
+ <div class="container">
+            <div class="form-container">
+                <h2 class="form-title">{{#if jogo}}Editar Jogo{{else}}Cadastro de Jogo{{/if}}</h2>
+                <form action="{{#if jogo}}/jogos/{{jogo.id}}/update{{else}}/jogos/novo{{/if}}" method="post">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título:</label>
+                        <input type="text" id="titulo" name="titulo" class="form-control" value="{{jogo.titulo}}" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição:</label>
+                        <input type="text" id="descricao" name="descricao" class="form-control" value="{{jogo.descricao}}" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="precoBase" class="form-label">Preço Base:</label>
+                        <input type="number" id="precoBase" name="precoBase" class="form-control" value="{{jogo.precoBase}}" />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-submit">{{#if jogo}}Salvar Alterações{{else}}Cadastrar Jogo{{/if}}</button>
+                    <a href="/usuarios/novo" class="btn btn-secondary btn-back">Cadastrar Usuário</a>
+                </form>
+            </div>
+        </div>

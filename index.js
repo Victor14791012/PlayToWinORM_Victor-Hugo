@@ -92,7 +92,7 @@ app.post("/usuarios/novo", async (req, res) => {
 
   try {
     const usuario = await Usuario.create({ nickname, nome });
-    res.send(`<script>alert("Usuário inserido sob o id ${usuario.id}"); window.location.href = '/usuarios/novo';</script>`);
+    res.send(`<script>alert("Usuário inserido sob o id ${usuario.id}"); window.location.href = '/usuarios';</script>`);
   } catch (error) {
     console.error("Erro ao criar usuário:", error);
     res.send(`<script>alert("Erro ao criar usuário: ${error.message}"); window.location.href = '/usuarios/novo';</script>`);
