@@ -1,24 +1,23 @@
-<h1>Usuários Cadastrados</h1>
+<h1>Usuários</h1>
 
 <table border="1">
-    <tr>
-        <th>Id</th>
-        <th>Nickname</th>
-        <th>Nome</th>
-        <th>Update</th>
-        <th>Deletar</th>
-    </tr>
-    {{#each usuarios}}
-    <tr>
-        <td>{{this.id}}</td>
-        <td>{{this.nickname}}</td>
-        <td>{{this.nome}}</td>
-        <td>
-            <a href="/usuarios/{{this.id}}/update">Atualizar</a>
-        </td>
-        <td>
-            <a href="/usuarios/{{this.id}}/delete" onclick="return confirm('Você tem certeza que deseja deletar este usuário?')" >Deletar</a>
-        </td>
-    </tr>
-    {{/each}}
+  <tr>
+    <th>Id</th>
+    <th>Nickname</th>
+    <th>Nome</th>
+    <th>Ações</th>
+  </tr>
+  {{#each usuarios}}
+  <tr>
+    <td>{{this.id}}</td>
+    <td>{{this.nickname}}</td>
+    <td>{{this.nome}}</td>
+    <td>
+      <a href="/usuarios/{{this.id}}/update" class="btn  btn-outline-info">Editar</a>
+      <a href="/usuarios/{{this.id}}/delete"  class="btn btn-outline-danger" onclick="return confirm('Você tem certeza que deseja deletar este usuário?');">Deletar</a>
+    </td>
+  </tr>
+  {{/each}}
 </table>
+
+<a href="/usuarios/novo" class="btn  btn-outline-secondary ">Adicionar Usuário</a>

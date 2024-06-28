@@ -1,26 +1,30 @@
-<h1>Jogos Cadastrados</h1>
+<h1>Jogos</h1>
 
-<table border="1">
+<table class="table table-bordered">
+  <thead>
     <tr>
-        <th>Id</th>
-        <th>Título</th>
-        <th>Descrição</th>
-        <th>Preço Base</th>
-        <th>Update</th>
-        <th>Deletar</th>
+      <th>Id</th>
+      <th>Título</th>
+      <th>Descrição</th>
+      <th>Preço Base</th>
+      <th>Ações</th>
     </tr>
+  </thead>
+  <tbody>
     {{#each jogos}}
-    <tr>
+      <tr>
         <td>{{this.id}}</td>
         <td>{{this.titulo}}</td>
         <td>{{this.descricao}}</td>
         <td>{{this.precoBase}}</td>
         <td>
-            <a href="/jogos/{{this.id}}/update" >Atualizar</a>
+          <a href="/jogos/{{this.id}}/update" class="btn  btn-outline-info">Editar</a>
+          <a href="/jogos/{{this.id}}/delete" class="btn btn-outline-danger" onclick="return confirm('Você tem certeza que deseja deletar este jogo?');">Deletar</a>
+          <a href="/jogos/{{this.id}}/conquistas" class="btn  btn-outline-secondary " >Conquistas</a>
         </td>
-        <td>
-            <a href="/jogos/{{this.id}}/delete"  onclick="return confirm('Você tem certeza que deseja deletar este jogo?')">Deletar</a>
-        </td>
-    </tr>
+      </tr>
     {{/each}}
+  </tbody>
 </table>
+
+<a href="/jogos/novo" class="btn  btn-outline-secondary ">Adicionar Jogo</a>

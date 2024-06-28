@@ -2,6 +2,7 @@ require("dotenv").config();
 const conn = require("./db/conn");
 const Usuario = require("./models/Usuario");
 const Jogo = require("./models/Jogo");
+const Conquista = require("./models/Conquista");
 const express = require("express");
 const exphbs = require("express-handlebars");
 
@@ -16,19 +17,30 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/usuarios", async (req, res) => {
-  const usuarios = await Usuario.findAll({ raw: true });
-  res.render("usuarios", { usuarios });
-});
-
 app.get("/jogos", async (req, res) => {
     const jogos = await Jogo.findAll({ raw: true });
     res.render("jogos", { jogos });  
 });
 
+app.get("/usuarios", async (req, res) => {
+  const usuarios = await Usuario.findAll({ raw: true });
+  res.render("usuarios", { usuarios });
+});
 
 app.get("/usuarios/novo", (req, res) => {
   res.render("formUsuario");
+});
+
+app.post("/usuarios/novo", async (req, res) => {
+  const { nickname, nome } = req.body;
+
+  try {
+    const usuario = await Usuario.create({ nickname, nome });
+    res.send(`<script>alert("Usuário inserido sob o id ${usuario.id}"); window.location.href = '/usuarios';</script>`);
+  } catch (error) {
+    console.error("Erro ao criar usuário:", error);
+    res.send(`<script>alert("Erro ao criar usuário: ${error.message}"); window.location.href = '/usuarios/novo';</script>`);
+  }
 });
 
 app.get("/usuarios/:id/update", async (req, res) => {
@@ -70,11 +82,7 @@ app.post("/jogos/novo", async (req, res) => {
   const { titulo, descricao, precoBase } = req.body;
 
   try {
-    const jogo = await Jogo.create({
-      titulo,
-      descricao,
-      precoBase,
-    });
+    const jogo = await Jogo.create({ titulo, descricao, precoBase });
     res.send(`<script>alert("Jogo inserido sob o id ${jogo.id}"); window.location.href = '/jogos';</script>`);
   } catch (error) {
     console.error("Erro ao criar jogo:", error);
@@ -82,32 +90,11 @@ app.post("/jogos/novo", async (req, res) => {
   }
 });
 
-
-app.get("/usuarios/novo", (req, res) => {
-  res.render("formUsuario");
-});
-
-app.post("/usuarios/novo", async (req, res) => {
-  const { nickname, nome } = req.body;
-
-  try {
-    const usuario = await Usuario.create({ nickname, nome });
-    res.send(`<script>alert("Usuário inserido sob o id ${usuario.id}"); window.location.href = '/usuarios';</script>`);
-  } catch (error) {
-    console.error("Erro ao criar usuário:", error);
-    res.send(`<script>alert("Erro ao criar usuário: ${error.message}"); window.location.href = '/usuarios/novo';</script>`);
-  }
-});
-
-
-
-// Rota para renderizar o formulário de edição de jogos
 app.get("/jogos/:id/update", async (req, res) => {
   const id = parseInt(req.params.id);
   const jogo = await Jogo.findByPk(id, { raw: true });
   res.render("formJogo", { jogo });
 });
-
 
 app.post("/jogos/:id/update", async (req, res) => {
   const id = parseInt(req.params.id);
@@ -122,7 +109,6 @@ app.post("/jogos/:id/update", async (req, res) => {
   }
 });
 
-
 app.get("/jogos/:id/delete", async (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -132,6 +118,32 @@ app.get("/jogos/:id/delete", async (req, res) => {
   } catch (error) {
     console.error("Erro ao deletar jogo:", error);
     res.send(`<script>alert("Erro ao deletar jogo: ${error.message}"); window.location.href = '/jogos';</script>`);
+  }
+});
+
+
+
+app.get("/jogos/:id/conquistas/novo", (req, res) => {
+  const jogoId = parseInt(req.params.id);
+  res.render("formConquista", { jogoId });
+});
+
+app.get("/jogos/:id/conquistas", async (req, res) => {
+  const jogoId = parseInt(req.params.id);
+  const conquistas = await Conquista.findAll({ where: { jogo_id: jogoId }, raw: true });
+  res.render("conquistas", { conquistas, jogoId });
+});
+
+app.post("/jogos/:id/conquistas/novo", async (req, res) => {
+  const jogoId = parseInt(req.params.id);
+  const { titulo, descricao } = req.body;
+
+  try {
+    await Conquista.create({ jogo_id: jogoId, titulo, descricao });
+    res.send(`<script>alert("Conquista adicionada com sucesso"); window.location.href = '/jogos/${jogoId}/conquistas';</script>`);
+  } catch (error) {
+    console.error("Erro ao adicionar conquista:", error);
+    res.send(`<script>alert("Erro ao adicionar conquista: ${error.message}"); window.location.href = '/jogos/${jogoId}/conquistas/novo';</script>`);
   }
 });
 

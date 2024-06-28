@@ -1,0 +1,20 @@
+<h1>Conquistas do Jogo: {{jogoId}}</h1>
+
+<a href="/jogos/{{jogoId}}/conquistas/novo" class="btn btn-primary">Cadastrar Nova Conquista</a>
+
+<table class="table table-bordered mt-3">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Descrição</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each conquistas}}
+      <tr>
+        <td>{{this.titulo}}</td>
+        <td>{{this.descricao}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
